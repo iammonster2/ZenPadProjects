@@ -151,7 +151,7 @@ function calcSubtotalPrice() {
 
   cart_data.forEach((item) => (subtotal += item.price * item.qty));
 
-  subtotalPrice.innerText = subtotal;
+  subtotalPrice.innerText = subtotal.toFixed(2);
 }
 
 // Render Items
@@ -170,7 +170,7 @@ function renderItems() {
     detailsEl.classList.add("item_details");
     detailsEl.innerHTML = `
       <p>${item.name}</p>
-      <strong>$${item.price}</strong>
+      <h6>$${item.price.toFixed(2)}</h6>
       <button>Add to Cart</button>
     `;
 
@@ -200,15 +200,19 @@ function renderCartItems() {
       <div class="item_img">
         <img src="${item.image}" alt="" />
       </div>
-      <div class="item_details">
+      <div class=" cart-item-details">
         <p>${item.name}</p>
-        <strong>$${item.price}</strong>
+        <h6>$${item.price.toFixed(2)}</h6>
         <div class="qty">
-          <span onclick="decreaseQty(${item.id})">-</span>
+          <button class="quantity-button minus" onclick="decreaseQty(${
+            item.id
+          })">-</button>
           <strong>${item.qty}</strong>
-          <span onclick="increaseQty(${item.id})">+</span>
+          <button class="quantity-button add" onclick="increaseQty(${
+            item.id
+          })">+</button>
         </div>
-      </div> 
+      </div>
     `;
     cartItems.appendChild(cartItem);
   });
