@@ -328,7 +328,7 @@
 
           <!--btn-->
           <div class="product-button">
-            <a href="#" class="add-bag-btn">Add To Cart</a>
+            <a href="#" class="add-bag-btn" id="addToCartBtn">Add To Cart</a>
           </div>
           <!--help-btn-->
         </div>
@@ -374,6 +374,39 @@
         $(".s-checkbox").not(this).prop("checked", false);
       });
     </script>
+     <div class="container">
+
+      <!-- Items -->
+     <div class="items"></div>
+ 
+     <!-- Backdrop -->
+     <div class="backdrop"></div>
+     <!-- Side Cart -->
+     <div id="sidecart" class="sidecart">
+       <div class="cart_content">
+         <!-- Cart Header -->
+         <div class="cart_header">
+           <img src="iconbag.png" alt="" style="width: 30px" />
+           <div class="header_title">
+             <h2>Your Cart</h2>
+             <span id="items_num">0</span>
+           </div>
+           <span id="close_btn" class="close_btn">&times;</span>
+         </div>
+         <!-- Cart Items -->
+         <div class="cart_items"></div>
+         <!-- Cart Actions -->
+         <div class="cart_actions">
+           <div class="subtotal">
+             <p>SUBTOTAL:</p>
+             <p>$<span id="subtotal_price">3896</span></p>
+           </div>
+           <button>View Cart</button>
+           <button>Checkout</button>
+         </div>
+       </div>
+     </div>
+ 
 
     <footer class="footer">
       <div class="container6">

@@ -56,7 +56,6 @@ const ITEMS = [
     qty: 1,
   },
 ];
-
 const openBtn = document.getElementById("open_cart_btn");
 const cart = document.getElementById("sidecart");
 const closeBtn = document.getElementById("close_btn");
@@ -66,7 +65,7 @@ const cartItems = document.querySelector(".cart_items");
 const itemsNum = document.getElementById("items_num");
 const subtotalPrice = document.getElementById("subtotal_price");
 
-let cart_data = [];
+let cart_data = loadCartFromLocalStorage();
 
 openBtn.addEventListener("click", openCart);
 closeBtn.addEventListener("click", closeCart);
@@ -75,7 +74,6 @@ backdrop.addEventListener("click", closeCart);
 renderItems();
 renderCartItems();
 
-// Open Cart
 function openCart() {
   cart.classList.add("open");
   backdrop.style.display = "block";
@@ -85,7 +83,6 @@ function openCart() {
   }, 0);
 }
 
-// Close Cart
 function closeCart() {
   cart.classList.remove("open");
   backdrop.classList.remove("show");
@@ -95,9 +92,7 @@ function closeCart() {
   }, 500);
 }
 
-// Add Items to Cart
 function addItem(itemId) {
-  // find the index of the item
   const idx = ITEMS.findIndex((item) => item.id === itemId);
 
   if (idx !== -1) {
@@ -105,20 +100,30 @@ function addItem(itemId) {
     if (foundedItem) {
       increaseQty(itemId);
     } else {
-      cart_data.push(ITEMS[idx]);
+      cart_data.push({ ...ITEMS[idx], qty: 1 });
     }
     updateCart();
     openCart();
   }
+
+  saveCartToLocalStorage();
 }
 
-// Remove Cart Items
+// Find the "Add to Cart" button
+const addToCartBtn = document.getElementById("addToCartBtn");
+
+// Add a click event listener
+if (addToCartBtn) {
+  addToCartBtn.addEventListener("click", function (event) {
+    event.preventDefault(); // Prevent the default link behavior
+    addItem(1);
+  });
+}
 function removeCartItem(itemId) {
-  cart_data = cart_data.filter((item) => item.id != itemId);
+  cart_data = cart_data.filter((item) => item.id !== itemId);
   updateCart();
 }
 
-// Increase Qty
 function increaseQty(itemId) {
   cart_data = cart_data.map((item) =>
     item.id === itemId ? { ...item, qty: item.qty + 1 } : item
@@ -126,7 +131,6 @@ function increaseQty(itemId) {
   updateCart();
 }
 
-// Decrease Qty
 function decreaseQty(itemId) {
   cart_data = cart_data.map((item) =>
     item.id === itemId
@@ -136,25 +140,18 @@ function decreaseQty(itemId) {
   updateCart();
 }
 
-// Calculate Items Number
 function calcItemsNum() {
   let itemsCount = 0;
-
   cart_data.forEach((item) => (itemsCount += item.qty));
-
   itemsNum.innerText = itemsCount;
 }
 
-// Calculate Subtotal Price
 function calcSubtotalPrice() {
   let subtotal = 0;
-
   cart_data.forEach((item) => (subtotal += item.price * item.qty));
-
-  subtotalPrice.innerText = subtotal.toFixed(2);
+  return subtotal.toFixed(2);
 }
 
-// Render Items
 function renderItems() {
   ITEMS.forEach((item) => {
     const itemEl = document.createElement("div");
@@ -169,14 +166,13 @@ function renderItems() {
     const detailsEl = document.createElement("div");
     detailsEl.classList.add("item_details");
     detailsEl.innerHTML = `
-      <p>${item.name}</p>
-      <h6>$${item.price.toFixed(2)}</h6>
-      <button>Add to Cart</button>
-    `;
+  <p>${item.name}</p>
+  <h6>$${item.price.toFixed(2)}</h6>
+  <button>Add to Cart</button>
+  `;
 
-    // Add click event to the "Add to Cart" button
     detailsEl.querySelector("button").addEventListener("click", (event) => {
-      event.stopPropagation(); // Stop the event from propagating to the parent (item) element
+      event.stopPropagation();
       addItem(item.id);
     });
 
@@ -185,44 +181,61 @@ function renderItems() {
   });
 }
 
-// Display / Render Cart Items
 function renderCartItems() {
-  // remove everything from cart
   cartItems.innerHTML = "";
-  // add new data
   cart_data.forEach((item) => {
     const cartItem = document.createElement("div");
     cartItem.classList.add("cart_item");
     cartItem.innerHTML = `
-      <div class="remove_item" onclick="removeCartItem(${item.id})">
-        <span>&times;</span>
-      </div>
-      <div class="item_img">
-        <img src="${item.image}" alt="" />
-      </div>
-      <div class=" cart-item-details">
-        <p>${item.name}</p>
-        <h6>$${item.price.toFixed(2)}</h6>
-        <div class="qty">
-          <button class="quantity-button minus" onclick="decreaseQty(${
-            item.id
-          })">-</button>
-          <strong>${item.qty}</strong>
-          <button class="quantity-button add" onclick="increaseQty(${
-            item.id
-          })">+</button>
-        </div>
-      </div>
-    `;
+  <div class="remove_item" onclick="removeCartItem(${item.id})">
+  <span>Remove</span>
+  </div>
+  <div class="item_img">
+  <img src="${item.image}" alt="" />
+  </div>
+  <div class="cart-item-details">
+  <p>${item.name}</p>
+  <h6>$${item.price.toFixed(2)}</h6>
+  <div class="qty">
+  <button class="quantity-button minus" onclick="decreaseQty(${
+    item.id
+  })">-</button>
+  <strong>${item.qty}</strong>
+  <button class="quantity-button add" onclick="increaseQty(${
+    item.id
+  })">+</button>
+  </div>
+  </div>
+  `;
     cartItems.appendChild(cartItem);
   });
 }
 
 function updateCart() {
-  // rerender cart items with updated data
   renderCartItems();
-  // Update Items Number in Cart
   calcItemsNum();
-  // Update Subtotal Price
   calcSubtotalPrice();
+  updateCheckoutButton();
 }
+
+function updateCheckoutButton() {
+  const checkoutButton = document.getElementById("checkoutButton");
+  if (cart_data.length > 0) {
+    checkoutButton.innerText = `Checkout - $ ${calcSubtotalPrice()}`;
+  } else {
+    checkoutButton.innerText = "Checkout";
+  }
+}
+
+function saveCartToLocalStorage() {
+  localStorage.setItem("cart_data", JSON.stringify(cart_data));
+}
+
+function loadCartFromLocalStorage() {
+  const storedCart = localStorage.getItem("cart_data");
+  return storedCart ? JSON.parse(storedCart) : [];
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  updateCart();
+});

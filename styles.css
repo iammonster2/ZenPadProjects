@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Nunito Sans", sans-serif;
 }
 
 :root {
@@ -14,17 +14,28 @@
 /* Cart Icon */
 .cart-icon {
   position: absolute;
+  margin: 0;
+}
+
+.cart-icon {
+  display: inline-block;
+  background-color: #000;
+  color: #fff;
+  border-radius: 50%;
+  padding: 4px 8px;
+  font-size: 12px;
+  margin-left: 5px;
 }
 
 .cart-icon img {
-  margin-left: 190px;
+  margin-left: 402px;
   margin-top: -35px;
 }
 
 #open_cart_btn {
   position: absolute;
   top: 100px;
-  right: 400px;
+  margin-left: 717px;
   font-size: 16px;
   border: none;
   color: #fff;
@@ -95,7 +106,7 @@
 }
 
 .item_img img {
-  max-width: 100%;
+  max-width: 50%;
   min-height: 100%;
   object-fit: contain;
 }
@@ -117,6 +128,10 @@
   margin-top: -80px;
   font-size: 16px;
   font-weight: 400;
+}
+
+.item_details h6 {
+  font-size: 18px;
 }
 
 .item_details .qty {
@@ -189,7 +204,7 @@
   width: 500px;
   background-color: #fff;
   box-shadow: -10px 0 15px var(--light-gray);
-  z-index: 3;
+  z-index: 9999;
   transform: translateX(110%);
   transition: transform 0.5s ease-in-out;
 }
@@ -236,11 +251,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #000;
+  border: 1px solid lightgray;
   padding: 3px;
-  width: 130px;
+  width: 110px;
   gap: 25px;
-  font-size: 20px;
+  font-size: 18px;
   margin-left: -30px;
 }
 
@@ -284,46 +299,84 @@
   font-family: "Montserrat", sans-serif;
   color: #000;
   margin-top: -80px;
-  font-size: 12px;
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 300;
   margin-left: -30px;
 }
 
 .cart-item-details h6 {
   margin-left: -30px;
-  font-size: 12px;
-  font-weight: 300;
+  font-size: 14px;
+  font-weight: lighter;
 }
 
 .cart-item-details strong {
   margin-left: 0;
+  font-family: lighter;
 }
 
+#checkoutButton {
+  width: 80%;
+  margin: 0;
+  padding: 10.4px 28px;
+  margin-left: 55px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  letter-spacing: 1px;
+  border: 2px solid #000;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(to right, #000 50% transparent 50%);
+  background-size: 200%;
+  background-position: left;
+  background-color: #000;
+  transition: background-position 0.5s, color 0.5s;
+  color: #fff;
+}
+
+#checkoutButton:hover {
+  background-position: right;
+  color: #000;
+  background-color: #fff;
+}
+
+#checkoutButton:not(:hover) {
+  background-position: left;
+  color: #fff;
+}
 .cart_actions button {
-  display: flex;
-  justify-content: space-between;
   width: 100%;
+}
+
+.cart_actions button:hover {
+  background: linear-gradient(to right, transparent 50%, #fff 50%);
+  background-position: right;
+  color: #000;
 }
 
 .remove_item {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 123px;
+  right: 120px;
   width: 20px;
   height: 20px;
-  background-color: #ccc;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 12px;
+  background-color: #fff;
   border-radius: 50%;
   display: flex;
 }
 
 .item button {
-  width: 200px;
-  padding: 15px 25px;
+  width: 250px;
+  padding: 10px 15px;
   margin: 20px;
-  font-size: 18px;
+  font-size: 16px;
+  font-weight: 200;
   letter-spacing: 1px;
   border: 2px solid #000;
-  color: #fff;
+  color: ;
   cursor: pointer;
   background: linear-gradient(to right, transparent 50%, #fff 50%);
   background-size: 200%;
