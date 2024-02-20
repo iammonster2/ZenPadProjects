@@ -147,14 +147,54 @@ body {
   width: 90%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin: 50px auto;
+  margin: 50px;
+  margin-left: 300px;
 }
-.product-img {
-  width: 100%;
-  background-color: #e3e3e3;
-  position: relative;
-  overflow: hidden;
-  z-index: 100;
+/* styled.css */
+
+.product-details h2 {
+  /* Add your styling properties here */
+  font-size: 20px;
+  font-weight: 300;
+  font-family: "Montserrat", sans-serif;
+  color: #1c1b1ba6;
+  text-align: left;
+  line-height: 1.7;
+}
+.product-details h1 {
+  font-size: 50px;
+  color: #000;
+  font-family: sans-serif Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  line-height: 1.6;
+  margin-top: -10px;
+}
+
+.product-details p {
+  font-size: 20px;
+  color: #000;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  column-gap: 1rem;
+  margin-top: -15px;
+}
+.product-details h3 {
+  font-size: 16px;
+  color: #1c1b1ba6;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  margin-top: 20px;
+}
+
+.product-details .size-text {
+  margin-top: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.product-details img {
+  width: 90%; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
 }
 
 .img-social-bar {
@@ -179,59 +219,44 @@ body {
 .img-social-bar a:hover {
   color: #181818;
 }
-.product-text {
-  background-color: #ffffff;
-  padding: 60px;
-  position: relative;
-}
-.product-text .product-category {
-  color: #5e5e5e;
-  font-size: 0.9rem;
-}
-.product-text h3 {
-  color: #252525;
-  font-size: 2.4rem;
-  font-weight: 600;
-  margin: 10px 0px;
-}
-.product-text .product-price {
-  font-size: 1.6rem;
-  color: #252525;
-  font-weight: 500;
-}
-.product-text p {
-  margin: 30px 0px;
-  color: #5e5e5e;
-  letter-spacing: 1px;
-  font-size: 0.9rem;
-}
-.product-size-container span {
-  color: #252525;
-  font-size: 1rem;
-  font-weight: 300;
-  letter-spacing: 2px;
-}
-.product-size {
+
+/* Styles for product buttons */
+.product-buttons {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-top: 20px;
+  justify-content: flex-end; /* Align buttons to the far right */
+  margin-top: 10px;
+  margin-right: 300px;
 }
-.product-size label {
-  font-size: 1.1rem;
+
+.wick-button {
+  padding: 12px 20px;
+  margin-right: 120px;
   background-color: #fff;
-  width: 100px;
-  height: 40px;
-  border: solid 1px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  user-select: none;
-  margin-right: 10px;
-  font-weight: 300;
+  color: #000;
+  font-weight: lighter;
+  font-family: "Nunito Sans", sans-serif;
+  border: none;
+  border-radius: 0;
+  font-size: 18px;
+  border: 1px solid #000;
   cursor: pointer;
+  white-space: nowrap;
 }
+
+.wick-button:first-child {
+  margin-right: 10px; /* Adjust margin as needed */
+}
+
+.wick-button:active {
+  background-color: #000;
+  color: #fff;
+}
+
+.wick-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #000;
+}
+
 .s-checkbox:checked + .s-label {
   background-color: #1f2124;
   color: #ffffff;
