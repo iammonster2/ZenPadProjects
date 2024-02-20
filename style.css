@@ -8,6 +8,14 @@
 body {
   background-color: #fff;
 }
+
+body,
+nav,
+nav *,
+nav *:before,
+nav *:after {
+  font-family: "Montserrat", sans-serif;
+}
 /*------------------------------Nav Bar Start--------------------------------*/
 
 .logo {
@@ -31,6 +39,7 @@ nav {
   padding: 10px;
   z-index: 1;
   will-change: transform;
+  font-family: "Nunito Sans", sans-serif;
 }
 
 nav ul {
@@ -52,6 +61,8 @@ nav a {
   border-bottom: 2px solid transparent;
   font-size: 15px;
   transition: border-bottom 1s;
+  font-family: "Nunito Sans", sans-serif;
+  font-family: 100;
 }
 
 nav li:hover {
@@ -82,11 +93,16 @@ nav li a:hover {
   color: #fff;
   padding: 2em;
   transition: opacity 0.4s, visibility 0.3s; /* Add transitions for opacity and visibility */
+  font-family: "Nunito Sans", sans-serif;
 }
 
 nav li:hover .menu-sub {
   visibility: visible; /* When hovering, make it visible */
   opacity: 1; /* Change opacity to 1 to fade it in */
+}
+
+.menu-sub {
+  margin-top: 30px;
 }
 
 .menu-sub li:hover a {
@@ -137,6 +153,8 @@ nav li:hover .menu-sub {
 /*------------------------------Header Start--------------------------------*/
 
 .header {
+  position: relative;
+  top: -12px;
   width: 100%;
   margin-top: 190px;
   margin-left: 0;
@@ -493,38 +511,19 @@ ul {
 }
 
 /*responsive*/
-@media (max-width: 768px) {
-  * {
-    box-sizing: border-box;
-    font-family: "Nunito Sans", sans-serif;
-    margin: 0;
-    padding: 0;
+@media (max-width: 799px) {
+  .menu-main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
   }
 
-  body {
-    background-color: #fff;
-  }
-  .logo {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-  }
-
-  .logo img {
-    width: 200px;
-    height: auto;
-  }
-
-  nav {
-    position: sticky;
-    justify-content: center;
-    text-align: center;
-    top: 0;
-    background: #000;
-    padding: 10px;
-    z-index: 1;
-    will-change: transform;
+  #items_num {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
   }
 
   .footer-col {

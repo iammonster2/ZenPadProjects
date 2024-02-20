@@ -3,59 +3,32 @@ const ITEMS = [
     id: 1,
     name: "SKYLAR CITRON & SEA SALT",
     price: 50,
-    image: "img/products/harlem.jpeg",
+    image: "img/products/RubinaBall.png",
     qty: 1,
   },
   {
     id: 2,
     name: "SKYLAR CITRON & SEA SALT",
     price: 50,
-    image: "img/products/harlem.jpeg",
+    image: "img/products/Rubinasoft.png",
     qty: 1,
   },
   {
     id: 3,
-    name: "SKYLAR CITRON & SEA SALT",
+    name: "SKYLAR CITRON & SEA SALT3",
     price: 50,
-    image: "img/products/harlem.jpeg",
+    image: "img/products/Rubinagold.png",
     qty: 1,
   },
   {
     id: 4,
-    name: "SKYLAR CITRON & SEA SALT",
+    name: "SKYLAR CITRON & SEA SALT4",
     price: 50,
-    image: "img/products/harlem.jpeg",
-    qty: 1,
-  },
-  {
-    id: 1,
-    name: "SKYLAR CITRON & SEA SALT",
-    price: 50,
-    image: "img/products/harlem.jpeg",
-    qty: 1,
-  },
-  {
-    id: 2,
-    name: "SKYLAR CITRON & SEA SALT",
-    price: 50,
-    image: "img/products/harlem.jpeg",
-    qty: 1,
-  },
-  {
-    id: 3,
-    name: "SKYLAR CITRON & SEA SALT",
-    price: 50,
-    image: "img/products/harlem.jpeg",
-    qty: 1,
-  },
-  {
-    id: 4,
-    name: "SKYLAR CITRON & SEA SALT",
-    price: 50,
-    image: "img/products/harlem.jpeg",
+    image: "img/products/Rubinacognac.png",
     qty: 1,
   },
 ];
+
 const openBtn = document.getElementById("open_cart_btn");
 const cart = document.getElementById("sidecart");
 const closeBtn = document.getElementById("close_btn");
@@ -71,8 +44,69 @@ openBtn.addEventListener("click", openCart);
 closeBtn.addEventListener("click", closeCart);
 backdrop.addEventListener("click", closeCart);
 
-renderItems();
-renderCartItems();
+document.addEventListener("DOMContentLoaded", function () {
+  // Render items
+  renderItems();
+
+  // Add event listener to dynamically generated images
+  document.querySelectorAll(".items img").forEach((img) => {
+    img.addEventListener("click", function () {
+      // Extract product ID from the image's ID or any other attribute
+      const productId = parseInt(this.getAttribute("data-product-id"));
+
+      // Construct URL with query parameter
+      const url = `product_page.html?id=${productId}`;
+
+      // Redirect to the product page
+      window.location.href = url;
+    });
+  });
+
+  // Update cart on DOMContentLoaded event
+  updateCart();
+
+  // Load product details dynamically based on product ID
+  const productId = getUrlParameter("id"); // Get product ID from URL query parameter
+  if (productId === "1") {
+    renderProductDetails(productId);
+  }
+});
+
+// Function to render product details based on product ID
+function renderProductDetails(productId) {
+  // Assuming you have a container with class "product-details" to display the product details
+  const productDetailsContainer = document.querySelector(".product-details");
+
+  // Product description for product ID 1
+  const productDescription = `
+      <h2>Ruby Rose Candle</h2>
+      <p>
+          Indulge in the enchanting allure of "Ruby Rose" — a captivating candle that harmoniously blends the timeless elegance of rose petals with the soothing aroma to fill your space, creating a warm and inviting ambiance. Elevate your senses with this exquisite combination of floral and citrus fragrances.
+      </p>
+  `;
+
+  // Add the product description to the product details container
+  productDetailsContainer.innerHTML = productDescription;
+}
+
+// Function to extract query parameters from the URL
+function getUrlParameter(name) {
+  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+  const regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
+  const results = regex.exec(location.search);
+  return results === null
+    ? ""
+    : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+const openCartBtn = document.getElementById("open_cart_btn");
+
+if (openCartBtn) {
+  openCartBtn.addEventListener("click", function (event) {
+    event.preventDefault(); // Prevent the default button behavior
+    openCart();
+  });
+}
 
 function openCart() {
   cart.classList.add("open");
@@ -119,6 +153,7 @@ if (addToCartBtn) {
     addItem(1);
   });
 }
+
 function removeCartItem(itemId) {
   cart_data = cart_data.filter((item) => item.id !== itemId);
   updateCart();
@@ -152,24 +187,28 @@ function calcSubtotalPrice() {
   return subtotal.toFixed(2);
 }
 
+// Your other functions and variables...
+
+// Render items function
 function renderItems() {
   ITEMS.forEach((item) => {
     const itemEl = document.createElement("div");
     itemEl.classList.add("item");
 
-    const link = document.createElement("a");
-    link.href = "product_page.html";
-    link.appendChild(document.createElement("img"));
-    link.querySelector("img").src = item.image;
-    itemEl.appendChild(link);
+    // Create image element
+    const img = document.createElement("img");
+    img.src = item.image;
+    img.alt = item.name;
+    img.setAttribute("data-product-id", item.id); // Set product ID as data attribute
+    itemEl.appendChild(img);
 
     const detailsEl = document.createElement("div");
     detailsEl.classList.add("item_details");
     detailsEl.innerHTML = `
-  <p>${item.name}</p>
-  <h6>$${item.price.toFixed(2)}</h6>
-  <button>Add to Cart</button>
-  `;
+      <p>${item.name}</p>
+      <h6>$${item.price.toFixed(2)}</h6>
+      <button id="addToCartBtn">Add to Cart</button>
+    `;
 
     detailsEl.querySelector("button").addEventListener("click", (event) => {
       event.stopPropagation();
@@ -180,6 +219,11 @@ function renderItems() {
     itemsEl.appendChild(itemEl);
   });
 }
+
+// Call the renderItems function
+renderItems();
+
+// Your other event listeners and code...
 
 function renderCartItems() {
   cartItems.innerHTML = "";
@@ -235,7 +279,3 @@ function loadCartFromLocalStorage() {
   const storedCart = localStorage.getItem("cart_data");
   return storedCart ? JSON.parse(storedCart) : [];
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  updateCart();
-});

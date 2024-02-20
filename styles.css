@@ -14,38 +14,15 @@
 /* Cart Icon */
 .cart-icon {
   position: absolute;
-  margin: 0;
-}
-
-.cart-icon {
+  margin-left: 280px;
+  top: 30px;
+  list-style: none;
   display: inline-block;
-  background-color: #000;
-  color: #fff;
-  border-radius: 50%;
-  padding: 4px 8px;
-  font-size: 12px;
-  margin-left: 5px;
-}
-
-.cart-icon img {
-  margin-left: 402px;
-  margin-top: -35px;
 }
 
 #open_cart_btn {
-  position: absolute;
-  top: 100px;
-  margin-left: 717px;
-  font-size: 16px;
-  border: none;
+  text-decoration: none;
   color: #fff;
-  background-color: transparent;
-  padding: 10px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
 }
 
 /* Items */
