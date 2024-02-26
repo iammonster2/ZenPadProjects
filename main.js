@@ -37,6 +37,7 @@ const itemsEl = document.querySelector(".items");
 const cartItems = document.querySelector(".cart_items");
 const itemsNum = document.getElementById("items_num");
 const subtotalPrice = document.getElementById("subtotal_price");
+const productImage = document.getElementById("productImage"); // Assuming you have an image element with id "productImage" to display the product image
 
 let cart_data = loadCartFromLocalStorage();
 
@@ -54,11 +55,11 @@ document.addEventListener("DOMContentLoaded", function () {
       // Extract product ID from the image's ID or any other attribute
       const productId = parseInt(this.getAttribute("data-product-id"));
 
-      // Construct URL with query parameter
-      const url = `product_page.html?id=${productId}`;
+      // Find the corresponding product in ITEMS array
+      const product = ITEMS.find((item) => item.id === productId);
 
-      // Redirect to the product page
-      window.location.href = url;
+      // Update the source of the image dynamically
+      productImage.src = product.image;
     });
   });
 
@@ -78,12 +79,6 @@ function renderProductDetails(productId) {
   const productDetailsContainer = document.querySelector(".product-details");
 
   // Product description for product ID 1
-  const productDescription = `
-      <h2>Ruby Rose Candle</h2>
-      <p>
-          Indulge in the enchanting allure of "Ruby Rose" — a captivating candle that harmoniously blends the timeless elegance of rose petals with the soothing aroma to fill your space, creating a warm and inviting ambiance. Elevate your senses with this exquisite combination of floral and citrus fragrances.
-      </p>
-  `;
 
   // Add the product description to the product details container
   productDetailsContainer.innerHTML = productDescription;
