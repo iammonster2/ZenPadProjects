@@ -229,7 +229,7 @@ body {
 }
 
 .wick-button {
-  padding: 12px 20px;
+  padding: 10px 20px;
   margin-right: 120px;
   background-color: #fff;
   color: #000;
@@ -254,7 +254,61 @@ body {
 
 .wick-button:focus {
   outline: none;
-  box-shadow: 0 0 0 2px #000;
+  box-shadow: 0 0 0 1px #000;
+}
+#addToCartButton {
+  padding: 10px 120px;
+  width: 70%;
+  margin: 0;
+  margin-top: 40px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  border: 2px solid #000;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(to right, transparent 50%, #fff 50%);
+  background-size: 200%;
+  background-position: left;
+  transition: background-position 0.5s;
+  background-color: #000;
+}
+
+#addToCartButton:hover {
+  background-position: right;
+  color: #000;
+}
+
+.quantity-control {
+  width: 20%;
+  height: 40px;
+  margin-top: 20px;
+  border: 1px solid #000;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px; /* Adjust padding */
+}
+
+.quantity-control .subtract {
+  width: 25px; /* Adjust width */
+  font-size: 18px;
+  font-weight: lighter;
+  cursor: pointer;
+  background-color: #fff;
+  border: none;
+}
+
+.quantity-control .add {
+  font-size: 18px;
+  cursor: pointer;
+  background-color: #fff;
+  border: none;
+}
+
+.quantity {
+  font-size: 18px;
+  margin-left: -10px;
 }
 
 .s-checkbox:checked + .s-label {
@@ -364,4 +418,41 @@ body {
     grid-template-columns: 1fr;
     grid-gap: 10px;
   }
+}
+/* Product item container */
+.product-item {
+  margin-bottom: 20px; /* Adjust spacing between product items */
+}
+
+/* Product image */
+.product-image {
+  width: 100%; /* Ensure the image fills its container */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Product name */
+.product-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Product brand */
+.product-brand {
+  font-size: 16px;
+  color: #666; /* Adjust color as needed */
+}
+
+/* Product price */
+.product-price {
+  font-size: 16px;
+  color: #333; /* Adjust color as needed */
+  margin-top: 5px;
+}
+
+/* Product description */
+.product-description {
+  font-size: 14px;
+  color: #999; /* Adjust color as needed */
+  margin-top: 10px;
 }

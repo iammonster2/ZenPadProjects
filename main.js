@@ -37,7 +37,6 @@ const itemsEl = document.querySelector(".items");
 const cartItems = document.querySelector(".cart_items");
 const itemsNum = document.getElementById("items_num");
 const subtotalPrice = document.getElementById("subtotal_price");
-const productImage = document.getElementById("productImage"); // Assuming you have an image element with id "productImage" to display the product image
 
 let cart_data = loadCartFromLocalStorage();
 
@@ -55,22 +54,16 @@ document.addEventListener("DOMContentLoaded", function () {
       // Extract product ID from the image's ID or any other attribute
       const productId = parseInt(this.getAttribute("data-product-id"));
 
-      // Find the corresponding product in ITEMS array
-      const product = ITEMS.find((item) => item.id === productId);
+      // Construct URL with query parameter
+      const url = `product_page.html?id=${productId}`;
 
-      // Update the source of the image dynamically
-      productImage.src = product.image;
+      // Redirect to the product page
+      window.location.href = url;
     });
   });
 
   // Update cart on DOMContentLoaded event
   updateCart();
-
-  // Load product details dynamically based on product ID
-  const productId = getUrlParameter("id"); // Get product ID from URL query parameter
-  if (productId === "1") {
-    renderProductDetails(productId);
-  }
 });
 
 // Function to render product details based on product ID
@@ -79,19 +72,15 @@ function renderProductDetails(productId) {
   const productDetailsContainer = document.querySelector(".product-details");
 
   // Product description for product ID 1
+  const productDescription = `
+      <h2>Ruby Rose Candle</h2>
+      <p>
+          Indulge in the enchanting allure of "Ruby Rose" — a captivating candle that harmoniously blends the timeless elegance of rose petals with the soothing aroma to fill your space, creating a warm and inviting ambiance. Elevate your senses with this exquisite combination of floral and citrus fragrances.
+      </p>
+  `;
 
   // Add the product description to the product details container
   productDetailsContainer.innerHTML = productDescription;
-}
-
-// Function to extract query parameters from the URL
-function getUrlParameter(name) {
-  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-  const regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
-  const results = regex.exec(location.search);
-  return results === null
-    ? ""
-    : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
 const openCartBtn = document.getElementById("open_cart_btn");
@@ -135,7 +124,7 @@ function addItem(itemId) {
     openCart();
   }
 
-  saveCartToLocalStorage();
+  saveCartToLocalStorage(); // Save the updated cart data to local storage
 }
 
 // Find the "Add to Cart" button
@@ -152,6 +141,7 @@ if (addToCartBtn) {
 function removeCartItem(itemId) {
   cart_data = cart_data.filter((item) => item.id !== itemId);
   updateCart();
+  saveCartToLocalStorage(); // Save the updated cart data to local storage
 }
 
 function increaseQty(itemId) {
@@ -159,6 +149,7 @@ function increaseQty(itemId) {
     item.id === itemId ? { ...item, qty: item.qty + 1 } : item
   );
   updateCart();
+  saveCartToLocalStorage(); // Save the updated cart data to local storage
 }
 
 function decreaseQty(itemId) {
@@ -168,6 +159,7 @@ function decreaseQty(itemId) {
       : item
   );
   updateCart();
+  saveCartToLocalStorage(); // Save the updated cart data to local storage
 }
 
 function calcItemsNum() {
@@ -202,7 +194,7 @@ function renderItems() {
     detailsEl.innerHTML = `
       <p>${item.name}</p>
       <h6>$${item.price.toFixed(2)}</h6>
-      <button id="addToCartBtn">Add to Cart</button>
+      <button class="addToCartBtn">Add to Cart</button>
     `;
 
     detailsEl.querySelector("button").addEventListener("click", (event) => {
@@ -273,4 +265,12 @@ function saveCartToLocalStorage() {
 function loadCartFromLocalStorage() {
   const storedCart = localStorage.getItem("cart_data");
   return storedCart ? JSON.parse(storedCart) : [];
+}
+
+// Function to clear cart items
+function clearCart() {
+  // Clear cart items logic
+  cart_data = [];
+  updateCart(); // Update the cart display
+  saveCartToLocalStorage(); // Save the empty cart to localStorage
 }
